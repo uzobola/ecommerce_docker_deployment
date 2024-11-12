@@ -18,7 +18,9 @@ Be sure to document each step in the process and explain WHY each step is import
 
 3. Create a t3.medium EC2 called "Docker_Terraform". This will be your Jenkins NODE instance. Install Java 17, Terraform, Docker, and AWS CLI onti it.  For this workload it would be easiest to use the same .pem key for both of these instances to avoid confusion when trying to connect them.
 
-4. The next few steps will guide you on how to set up a Jenkins Node Agent.
+   NOTE: Make sure you configure AWS CLI and that Terraform can create infrastructure using your credentials (Optional: Consider adding a verification in your pipeline stage to check for this to avoid errors).
+
+5. The next few steps will guide you on how to set up a Jenkins Node Agent.
 
   a. Make sure both instances are running and then log into the Jenkins console in the Jenkins Manager instance.  On the left side of the home page under the navigation panel and "Build Queue", Click on "Build Executor Status"
 
@@ -83,6 +85,13 @@ user_data = base64encode(templatefile("${path.module}/deploy.sh", {
     })
   }))
 ```
+Also make sure that you also include the following for the EC2 resource block:
+```
+  depends_on = [
+    aws_db_instance.main,
+    aws_nat_gateway.main
+  ]
+```
 NOTE: Notice what is required for this user data block.  (var.dockerhub_username, var.dockerhub_password, deploy.sh, compose.yaml, and aws_db_instance.main.endpoint) Make sure that you declare the required variables and place the deploy.sh (must create) and compose.yaml (provided) in the same directory as your main.tf (Terraform directory in GitHub).
 
 6. Create a deploy.sh file that will run in "user_data".
@@ -107,7 +116,7 @@ NOTE: Notice what is required for this user data block.  (var.dockerhub_username
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] docker-compose.yml created"
     
     ```
-   Note: How is this code creating the docker_compose.yaml file? (Hint: Look at "user_data")
+   Note: How is this code creating the docker_compose.yaml file? (Hint: Look at "user_data" and the "Jenkinsfile")
 
    iv. run `docker-compose pull`
 
