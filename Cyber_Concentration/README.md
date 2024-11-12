@@ -20,7 +20,7 @@ For each tool, write a brief explanation covering the following:
 
 1. **Trivy** 
 2. **SonarQube** 
-3. **OWASP ZAP**
+3. **OWASP ZAP** (Install after you have install Jenkins)
 4. **Checkov**
 
 ---
