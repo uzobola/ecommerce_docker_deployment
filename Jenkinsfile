@@ -63,7 +63,7 @@ pipeline {
     stage('Infrastructure') {
       agent { label 'build-node' }
       steps {
-        dir('terraform') {
+        dir('Terraform') {
           sh '''
             terraform init
             terraform apply -auto-approve \
