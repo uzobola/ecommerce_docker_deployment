@@ -89,17 +89,22 @@ pipeline {
         
         // Build and push backend
         sh '''
-          docker build -t <backend image tagged for dockerhub>:latest -f Dockerfile.backend .
-          docker push <backend image tagged for dockerhub:latest
+          docker build -t uzobol/ecommerce-backend:latest -f Dockerfile.backend .
+          docker push uzobol/ecommerce-backend:latest
         '''
         
         // Build and push frontend
         sh '''
-          docker build -t <frontent image tagged for dockerhub>:latest -f Dockerfile.frontend .
-          docker push <frontend image tagged for dockerhub>:latest
+          docker build -t uzobol/ecommerce-frontend:latest -f Dockerfile.frontend .
+          docker push uzobol/ecommerce-frontend:latest
         '''
-      }
-    }
+	 // Build and push nginx
+        sh '''
+          docker build -t uzobol/ecommerce-nginx:latest -f Dockerfile.nginx .
+          docker push uzobol/ecommerce-nginx:latest
+        '''
+       }
+     }
 
     stage('Infrastructure') {
       agent { label 'build-node' }
