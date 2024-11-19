@@ -13,12 +13,12 @@ pipeline {
                 # Setup Python virtual environment
                 echo "Setting up Python virtual environment..."
 
-                python3 -m venv venv
+                python3.9 -m venv venv
                 source venv/bin/activate
                 pip install pip --upgrade
                 # Install Python dependencies
                 echo "Installing Python dependencies..."
-                pip install --no-cache-dir -r requirements.txt
+                pip install --no-cache-dir -r backend/requirements.txt
                 echo "Build stage completed successfully!"
                 '''
             }
