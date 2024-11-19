@@ -12,7 +12,9 @@ pipeline {
                 sh '''#!/bin/bash
                 # Setup Python virtual environment
                 echo "Setting up Python virtual environment..."
-                cd /home/ubuntu/ecommerce_docker_deployment/
+                sudo chown -R jenkins:jenkins /home/ubuntu/ecommerce_docker_deployment/
+
+		cd /home/ubuntu/ecommerce_docker_deployment/
                 python3 -m venv venv
                 source venv/bin/activate
 
