@@ -75,12 +75,6 @@ pipeline {
                   docker build -t uzobol/ecommerce-frontend:latest -f Dockerfile.frontend .
                   docker push uzobol/ecommerce-frontend:latest
                 '''
-
-                // Build and push nginx
-                sh '''
-                  docker build -t uzobol/ecommerce-nginx:latest -f Dockerfile.nginx .
-                  docker push uzobol/ecommerce-nginx:latest
-                '''
             }
         }
 

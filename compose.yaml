@@ -21,10 +21,3 @@ services:
     depends_on:
       - backend
 
-  nginx:
-    image: uzobol/ecommerce-nginx:latest
-    ports:
-      - "80:80"
-    depends_on:
-      - frontend
-      - backend
