@@ -134,6 +134,15 @@ resource "aws_security_group_rule" "allow_node_exporter" {
   protocol          = "tcp"
   security_group_id = module.ec2.app_sg_id
   cidr_blocks       = [data.aws_vpc.default.cidr_block]
+  description       = "Allow Node Exporter access from monitoring server"
 }
 
-
+resource "aws_security_group_rule" "allow_bastion_node_exporter" {
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  security_group_id = module.ec2.bastion_sg_id
+  cidr_blocks       = [data.aws_vpc.default.cidr_block]
+  description       = "Allow Node Exporter access from monitoring server"
+}
