@@ -10,8 +10,38 @@ pipeline {
       agent any
       steps {
         sh '''#!/bin/bash
-        <code to build the application>
-        '''
+        # Setup Python virtual environment
+        echo "Setting up Python virtual environment..."
+	cd /home/ubuntu/ecommerce_docker_deployment/
+        python3 -m venv venv
+        source venv/bin/activate
+
+        # Install Python dependencies
+        echo "Installing Python dependencies..."
+        pip install --no-cache-dir -r requirements.txt
+	pip install pytest-django
+            
+	# Set up Backend
+        echo "Setting up the backend..."
+        cd backend
+        python manage.py makemigrations account
+        python manage.py makemigrations payments
+        python manage.py makemigrations product
+        cd ..
+
+        #Set up Frontend 
+        echo "Building frontend..."
+        cd frontend
+        if ! command -v npm &> /dev/null; then
+             echo "npm is not installed. Installing..."
+    	     sudo apt install -y nodejs npm
+	fi
+        npm ci
+        npm run build
+        cd ..
+            
+        echo "Build stage completed successfully!"
+	'''
       }
     }
 
@@ -19,11 +49,22 @@ pipeline {
       agent any
       steps {
         sh '''#!/bin/bash
-        <code to activate virtual environment>
-        pip install pytest-django
-        python backend/manage.py makemigrations
+        echo "Starting test stage..."
+        cd /home/ubuntu/ecommerce_docker_deployment/
+        source venv/bin/activate
+                    
+        # Create directory for test reports
+        mkdir -p test-reports
+                    
+        # Run migrations on test database	              
+	pip install pytest-django
+        python backend/manage.py makemigrations 
         python backend/manage.py migrate
+	
+	# Run tests            
         pytest backend/account/tests.py --verbose --junit-xml test-reports/results.xml
+        
+	echo "Test stage completed successfully!"
         ''' 
       }
     }
