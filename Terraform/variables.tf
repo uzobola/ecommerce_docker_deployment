@@ -40,11 +40,13 @@ variable "instance_type" {
 variable "key_name" {
   description = "SSH key pair name"
   type        = string
+  default     = "uzo-wl6"
 }
 
 variable "ami_id" {
   description = "AMI ID"
   type        = string
+  default    = "ami-0866a3c8686eaeeba"
 }
 
 variable "dockerhub_username" {
@@ -61,6 +63,7 @@ variable "dockerhub_password" {
 variable "db_username" {
   description = "Database username"
   type        = string
+  default     = "userdb"
 }
 
 variable "db_password" {

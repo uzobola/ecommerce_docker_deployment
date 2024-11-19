@@ -90,15 +90,7 @@ pipeline {
                     echo "Running Terraform plan..."
                     terraform plan -out=tfplan \
                       -var="dockerhub_username=${DOCKER_CREDS_USR}" \
-                      -var="dockerhub_password=${DOCKER_CREDS_PSW}"
-		      -var="instance_type=t3.micro" \
-              	      -var="key_name=uzo-wl6" \
-                      -var="ami_id=ami-0c02fb55956c7d316" \
-                      -var="vpc_cidr=10.0.0.0/16" \
-                      -var='public_subnet_cidrs=["10.0.1.0/24", "10.0.2.0/24"]' \
-                      -var='private_subnet_cidrs=["10.0.3.0/24", "10.0.4.0/24"]' \
-                      -var='availability_zones=["us-east-1a", "us-east-1b"]' \
-                      -var="db_username=userdb" \
+                      -var="dockerhub_password=${DOCKER_CREDS_PSW}"\
                       -var="db_password=${DB_PASSWORD}"
 		    '''
                 }
