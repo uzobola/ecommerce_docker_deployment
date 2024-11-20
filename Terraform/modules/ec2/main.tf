@@ -153,7 +153,7 @@ resource "aws_instance" "app_az2" {
     rds_endpoint   = var.rds_endpoint,
     docker_user    = var.dockerhub_username,
     docker_pass    = var.dockerhub_password,
-    docker_compose = templatefile("${path.module}/compose.yaml", {
+    docker_compose = templatefile("${path.module}/compose-nomigrations.yaml", {
       rds_endpoint = var.rds_endpoint
     })
   }))

@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    image: uzobol/ecommerce-backend:latest
+    environment:
+      - DB_HOST=${rds_endpoint}
+    ports:
+      - "8000:8000"
+    command: >
+          sh -c "python manage.py migrate &&
+                python manage.py runserver 0.0.0.0:8000"
+
+  frontend:
+    image: uzobol/ecommerce-frontend:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
