@@ -250,7 +250,9 @@ Terraform/
 - Installed Grafana (STEPS HERE)
 - Configured VPC peering for cross-VPC communication (STEPS HERE)
 - Installed node exporter on application resources for metrics collection (STEPS HERE)
-  ![System Architecture](Monitoring ) 
+  ![Monitoring Grafana](Monitoring.png)
+
+  ![Monitoring Prometheus](Prometheus.png)
 
 
 ## Security Implementation
