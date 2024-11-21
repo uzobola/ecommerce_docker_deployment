@@ -250,7 +250,7 @@ Terraform/
 - Installed Grafana (STEPS HERE)
 - Configured VPC peering for cross-VPC communication (STEPS HERE)
 - Installed node exporter on application resources for metrics collection (STEPS HERE)
-  ![System Architecture](Monitoring Grafana Dashboard.png) 
+  ![System Architecture](Monitoring ) 
 
 
 ## Security Implementation
@@ -329,8 +329,8 @@ INITIAL TROUBLESHOOTING:
 ```
 
 3. Imported data dump file from SQLite  into PostgreSQL RDS:
-		```
-		python manage.py loaddata products.json
+  ```
+	python manage.py loaddata products.json
    ```
 
 **RESULT:**
