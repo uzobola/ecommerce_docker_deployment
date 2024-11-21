@@ -2,8 +2,7 @@
 # E-commerce Application Deployment with Docker and Terraform
 
 ## Requirements
-The E-commerce company now wants to containerize their application before deploying it to AWS Cloud which is secure, available, and fault-tolerant. They also want to utilize Infrastructure as code as well as a CICD pipeline to be able to spin up or modify infrastructure as needed whenever an update 
-is made to the application code.
+The E-commerce company now wants to containerize its application before deploying it to AWS Cloud, which is secure, available, and fault-tolerant. They also want to utilize Infrastructure as code and a CICD pipeline to spin up or modify infrastructure as needed whenever an update is made to the application code.
 
 
 ## Purpose
@@ -66,9 +65,9 @@ The infrastructure consists of:
 
 ## Overview of Requirements 
 ### 1. Environment Setup 
-- Create a Jenkins Manager (t3.micro) and Docker/Terraform Jenkins Node (t3.medium) instances
-- Required tools: Java 17, Jenkins, Docker, Terraform, AWS CLI (STEPS HERE)
-- Configure the Jenkins node agent for distributed builds (STEPS HERE)
+- Create a Jenkins Manager (t3.micro) and Docker/Terraform Jenkins Node (t3.medium) instances (STEPS scripts)
+- Required tools: Java 17, Jenkins, Docker, Terraform, AWS CLI (SCripts to install here:) ![SCRIPTS Steps Here](scripts)
+- Configure the Jenkins node agent for distributed builds (Steps to install here:) ![Steps Here](Instructions-Jenkins-node-agent.md)
 - **Importance**: Lays the foundation for our automated CI/CD pipeline
 
 ### 2. Infrastructure as Code
@@ -117,6 +116,7 @@ Manages and orchestrates all pipeline jobs and workflows.
 
 ### 2. Docker_Terraform (Jenkins Node Instance)
 
+Instructions-Jenkins-node-agent.md
 The Jenkins Node executes the actual build and handles deployment tasks.
 It is important because it reduces the load on Jenkins master and enables parallel execution of multiple jobs.
 In this deployment, it handles container operations and infrastructure provisioning.
