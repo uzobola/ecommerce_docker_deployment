@@ -45,6 +45,8 @@ The infrastructure consists of:
 
 ![System Architecture](./Diagram.jpeg)
 
+
+
 ### Key Components:
 **VPC Layout**
 - Default VPC containing Jenkins and Monitoring infrastructure
@@ -61,22 +63,22 @@ The infrastructure consists of:
 - Monitoring data collection
 
 
-## Overview of Requirements 
 
-### Environment Setup 
+## Overview of Requirements 
+### 1. Environment Setup 
 - Create a Jenkins Manager (t3.micro) and Docker/Terraform Jenkins Node (t3.medium) instances
 - Required tools: Java 17, Jenkins, Docker, Terraform, AWS CLI (STEPS HERE)
 - Configure the Jenkins node agent for distributed builds (STEPS HERE)
 - **Importance**: Lays the foundation for our automated CI/CD pipeline
 
-### Infrastructure as Code
+### 2. Infrastructure as Code
 - Create Terraform configuration files for infrastructure (for VPC, EC2, and RDS)
 - Include "user_data" code for EC2 resource block
 - Create deploy.sh script to run in "user_Data"
 **Importance**: Makes infrastructure manageable and reusable
 
 
-### Containerization : 
+### 3. Containerization : 
 - Create Dockerfiles for the backend (Python/Django), and frontend (Node.js)
 - Implement multi-stage builds in Jenkins for optimization
 - Set up Docker compose
@@ -94,11 +96,8 @@ The infrastructure consists of:
 - **Importance**: Automates deployment process and ensures quality
  
 
-
 ## Implementation Steps
-
 ### 1. Jenkins Manager Instance (t3.micro)
-
 The Jenkins Manager instance Acts as the central control plane for the entire CI/CD pipeline
 Manages and orchestrates all pipeline jobs and workflows.
 
@@ -113,6 +112,7 @@ Manages and orchestrates all pipeline jobs and workflows.
 - Handles authentication and authorization
 - Manages credentials and secrets
 - Controls access to different pipeline components
+
 
 
 ### 2. Docker_Terraform (Jenkins Node Instance)
@@ -135,18 +135,19 @@ Benefits:
 - It builds and tests container images independently, preventing conflicts
 - Ensures identical environments across various environments (Development or production)
 
-**JENKINS PIPELINE STAGES**
+##JENKINS PIPELINE STAGES
+
 **Importance**: Automates deployment process and ensures quality 
 **Stages:**
 (Jenkinsfile)
-### 1. Build Stage
+### . Build Stage
 - Creates Python virtual environment
 - Activates venv
 - Upgrades pip
 - Installs Python dependencies from backend/requirements.txt
 - **Purpose**: Sets up the Python development environment for the application
 
-### 2. Test Stage
+### . Test Stage
 - Uses the virtual environment from the Build stage
 - Creates test-reports directory
 - Installs pytest-django
@@ -154,13 +155,13 @@ Benefits:
 - Executes pytest on account/tests.py
 - **Purpose**: Tests the application to make sure it is functioning properly
 
-### 3. Cleanup Stage
+### . Cleanup Stage
 - Runs on build-node
 - Performs Docker system cleanup (prune)
 - Cleans git repository while preserving Terraform state
 - **Purpose**: Maintains a clean environment by removing unused resources
 
-### 4. Build & Push Images Stage
+### . Build & Push Images Stage
 - Runs on build-node
 - Logs into DockerHub using credentials
 - Builds and pushes two Docker images:
@@ -168,7 +169,7 @@ Benefits:
   - ecommerce-frontend
 - **Purpose**: Creates containerized applications and pushes them to DockerHub
 
-### 5. Terraform Plan Stage
+### . Terraform Plan Stage
 - Runs on build-node
 - Initializes Terraform
 - Creates execution plan using the credential configured in Jenkins:
@@ -176,12 +177,12 @@ Benefits:
   - Database password
 - **Purpose**: Prepares and reviews configuration 
 
-### 6. Terraform Apply Stage
+### . Terraform Apply Stage
 - Runs on build-node
 - Applies the Terraform plan
 - **Purpose**: This stage deploys the infrastructure
 
-### 7. Post-Build Actions
+### . Post-Build Actions
 - **Always**: 
   - Logs out of Docker
   - Cleans Docker system
@@ -192,6 +193,7 @@ Benefits:
   - Performs cleanup
 
 
+
 ## Terraform: For infrastructure as Code Deployment
 Importance: Makes infrastructure reproducible and maintainable
 Benefits:
@@ -200,7 +202,7 @@ Benefits:
 - Handles state management and executes infrastructure changes
 - The infrastructure components are reusable
 - Manages resource dependencies
-
+```
 **TERRAFORM MODULE STUCTURE**
 Terraform/
 ├── main.tf          
@@ -216,10 +218,12 @@ Terraform/
 ├── main.tf          
 ├── outputs.tf       
 
+```
 
 ### AWS CLI: For AWS resource management and authentication
 - Interacts with AWS services
 - Manages AWS resources and handles AWS authentication
+
 
 ## Containerization with Docker
 **Implementation**
@@ -248,17 +252,17 @@ Terraform/
 - Installed node exporter on application resources for metrics collection (STEPS HERE)
 
 
-### Security Implementation
-# Custom VPC Security
+## Security Implementation
+### Custom VPC Security
 - Private subnets: Application and database servers
 - Public subnets: Only bastion hosts and load balancers
 - NAT Gateway: Controlled outbound access
 
-# Default VPC Security
+### Default VPC Security
 - Jenkins and Monitoring servers with restricted access
 - VPC Peering with security group rules
 
-**Jenkins Security**
+###Jenkins Security
 - Configured Authentication built-in
 - Credentials Security implemented in the pipeline
 - Credential Management for:
@@ -266,18 +270,21 @@ Terraform/
 		- AWS
 		- GitHub
 
-**SSH Access**
+
+### SSH Access
 - Key-based authentication
 - Bastion Host as a single point of entry
 - No direct Access to private instances
 
-**Container Security**
+
+### Container Security
 - No hardcoded credentials
 - No sensitive data in images or files
 - Non-root user for application execution
 - Use of latest base images (With security patches)
 
-**Monitoring Security**
+
+### Monitoring Security**
 - Authentication Required
 - Secure communication through VPC Peering
 - Limited to  necessary metrics only
@@ -332,7 +339,7 @@ INITIAL TROUBLESHOOTING:
 - Both app servers can access the products
 
 
-KEY LEARNINGS:
+### KEY LEARNINGS:
 1. When using multiple databases:
     - Be clear about which database holds the source data
     - Use `-database` flag to specify source database
@@ -343,3 +350,22 @@ KEY LEARNINGS:
     - Verify connections before loading  data
     - Checking that the table exists doesn't mean that the data exists, make sure to verify
     - Use proper database credentials in settings.py
+
+
+## Optimization 
+
+### Infrastructure
+- Implement auto-scaling groups 
+- Implement cross-region redundancy
+- Configure backup strategies for RDS
+
+### Container Optimization
+- Implement container health checks
+- Add logging and monitoring solutions
+
+### Security Enhancements
+- Implement AWS WAF
+- Add SSL/TLS encryption
+- Alternative secret management
+
+
