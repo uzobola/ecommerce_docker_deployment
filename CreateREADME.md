@@ -265,7 +265,7 @@ Terraform/
 - Jenkins and Monitoring servers with restricted access
 - VPC Peering with security group rules
 
-###Jenkins Security
+### Jenkins Security
 - Configured Authentication built-in
 - Credentials Security implemented in the pipeline
 - Credential Management for:
@@ -287,7 +287,7 @@ Terraform/
 - Use of latest base images (With security patches)
 
 
-### Monitoring Security**
+### Monitoring Security
 - Authentication Required
 - Secure communication through VPC Peering
 - Limited to  necessary metrics only
