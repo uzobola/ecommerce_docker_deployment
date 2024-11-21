@@ -43,7 +43,7 @@ The infrastructure consists of:
   - Public subnet
   - EC2 Servers for the Jenkins Manager, Jenkins Node, and Monitoring Server
 
-![System Architecture](./Diagram.jpeg)
+![System Architecture](Diagram.jpg)
 
 
 
@@ -342,7 +342,7 @@ INITIAL TROUBLESHOOTING:
 ### KEY LEARNINGS:
 1. When using multiple databases:
     - Be clear about which database holds the source data
-    - Use `-database` flag to specify source database
+      
 2. For migrations:
     - Only run on one server when sharing a database
     - Or manually run migrations on one server
