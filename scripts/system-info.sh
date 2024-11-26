@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# System Info Script
 # Create a script that will present the following menu to a user to choose from:
 # 1. IP Addresses ( Public and Private)
 # 2. Current User 

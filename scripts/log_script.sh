@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Log Script
 # Create a BASH script that will search the log file for "404" errors and identify the IP addresses associated with them.  
 # Then provide the number of times each IP encountered a 404.
 

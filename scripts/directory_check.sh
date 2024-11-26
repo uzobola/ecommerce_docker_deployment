@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Directory Check
+
 dir=/home/director/ubuntu/backup
 
 #Check if Directory Exists

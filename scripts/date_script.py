@@ -1,4 +1,6 @@
+
 #Create a date.py script that is a date simulator and does the following:
+#Date Script
 #User inputs who is on the date with them
 #User inputs their budget for the date
 #Print the restaurant menu (your group created this!) 

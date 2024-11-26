@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Basic Calculator
 #The script should prompt the user to enter two integers.
 #The script should prompt the user to choose an operation: +,-,*,/
 #Use conditionals ('if`, `elif`, `else') to perform the chosen operation.
